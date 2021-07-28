@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_172429) do
+ActiveRecord::Schema.define(version: 2021_07_28_182141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,66 +44,68 @@ ActiveRecord::Schema.define(version: 2021_07_28_172429) do
   end
 
   create_table "characters", force: :cascade do |t|
-    t.bigint "studio_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.integer "age"
-    t.string "weight"
-    t.string "history"
+    t.float "weight"
+    t.text "history"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["studio_id"], name: "index_characters_on_studio_id"
-  end
-
-  create_table "characters_movies", id: false, force: :cascade do |t|
-    t.bigint "character_id", null: false
-    t.bigint "movie_id", null: false
-    t.index ["character_id", "movie_id"], name: "index_characters_movies_on_character_id_and_movie_id"
-    t.index ["movie_id", "character_id"], name: "index_characters_movies_on_movie_id_and_character_id"
-  end
-
-  create_table "genres", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "genres_movies", id: false, force: :cascade do |t|
-    t.bigint "genre_id", null: false
-    t.bigint "movie_id", null: false
-    t.index ["genre_id", "movie_id"], name: "index_genres_movies_on_genre_id_and_movie_id"
-    t.index ["movie_id", "genre_id"], name: "index_genres_movies_on_movie_id_and_genre_id"
+    t.index ["deleted_at"], name: "index_characters_on_deleted_at"
   end
 
   create_table "movies", force: :cascade do |t|
-    t.bigint "studio_id", null: false
-    t.string "title"
-    t.date "date_released"
+    t.string "title", null: false
+    t.date "release_date"
     t.integer "score"
+    t.datetime "deleted_at"
+    t.bigint "studio_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["deleted_at"], name: "index_movies_on_deleted_at"
     t.index ["studio_id"], name: "index_movies_on_studio_id"
   end
 
-  create_table "series", force: :cascade do |t|
-    t.string "title"
-    t.date "date_released"
-    t.integer "score"
-    t.string "image"
+  create_table "roles", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "show_id", null: false
+    t.bigint "character_id", null: false
     t.bigint "studio_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["studio_id"], name: "index_series_on_studio_id"
+    t.index ["character_id"], name: "index_roles_on_character_id"
+    t.index ["movie_id"], name: "index_roles_on_movie_id"
+    t.index ["show_id"], name: "index_roles_on_show_id"
+    t.index ["studio_id"], name: "index_roles_on_studio_id"
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.string "title", null: false
+    t.date "release_date"
+    t.integer "seasons"
+    t.integer "score"
+    t.datetime "deleted_at"
+    t.bigint "studio_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deleted_at"], name: "index_shows_on_deleted_at"
+    t.index ["studio_id"], name: "index_shows_on_studio_id"
   end
 
   create_table "studios", force: :cascade do |t|
     t.string "name"
+    t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["deleted_at"], name: "index_studios_on_deleted_at"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "characters", "studios"
   add_foreign_key "movies", "studios"
-  add_foreign_key "series", "studios"
+  add_foreign_key "roles", "characters"
+  add_foreign_key "roles", "movies"
+  add_foreign_key "roles", "shows"
+  add_foreign_key "roles", "studios"
+  add_foreign_key "shows", "studios"
 end
