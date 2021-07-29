@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  resources :studios
+  namespace :api do
+    resources :studios
+  end
 end
