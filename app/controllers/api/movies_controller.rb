@@ -45,7 +45,7 @@ module Api
       end
 
       def movie
-        @movie ||= studio.movies.find(params[:movie_id])
+        @movie ||= studio.movies.find(params[:id])
       end
 
       def movie_params
