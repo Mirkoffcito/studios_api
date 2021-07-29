@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "/api/studios", type: :request do
   describe "GET /api/studios" do
-
+    
   end
 
   describe "GET /api/studios/studio_id" do

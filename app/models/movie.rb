@@ -1,6 +1,8 @@
 class Movie < ApplicationRecord
-  has_many :roles
-  has_many :characters, through: :roles
+  belongs_to :studio
+
+  has_many :movieRoles
+  has_many :characters, through: :movieRoles
 
   has_one_attached :image
 end

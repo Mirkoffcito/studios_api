@@ -3,6 +3,5 @@ class StudioSerializer < ActiveModel::Serializer
 
   has_many :movies
   has_many :shows
-  has_many :characters
 end
   

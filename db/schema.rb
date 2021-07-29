@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_182141) do
+ActiveRecord::Schema.define(version: 2021_07_29_103014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(version: 2021_07_28_182141) do
     t.index ["deleted_at"], name: "index_characters_on_deleted_at"
   end
 
+  create_table "movie_roles", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_movie_roles_on_character_id"
+    t.index ["movie_id"], name: "index_movie_roles_on_movie_id"
+  end
+
   create_table "movies", force: :cascade do |t|
     t.string "title", null: false
     t.date "release_date"
@@ -66,17 +75,13 @@ ActiveRecord::Schema.define(version: 2021_07_28_182141) do
     t.index ["studio_id"], name: "index_movies_on_studio_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.bigint "movie_id", null: false
+  create_table "show_roles", force: :cascade do |t|
     t.bigint "show_id", null: false
     t.bigint "character_id", null: false
-    t.bigint "studio_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["character_id"], name: "index_roles_on_character_id"
-    t.index ["movie_id"], name: "index_roles_on_movie_id"
-    t.index ["show_id"], name: "index_roles_on_show_id"
-    t.index ["studio_id"], name: "index_roles_on_studio_id"
+    t.index ["character_id"], name: "index_show_roles_on_character_id"
+    t.index ["show_id"], name: "index_show_roles_on_show_id"
   end
 
   create_table "shows", force: :cascade do |t|
@@ -102,10 +107,10 @@ ActiveRecord::Schema.define(version: 2021_07_28_182141) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "movie_roles", "characters"
+  add_foreign_key "movie_roles", "movies"
   add_foreign_key "movies", "studios"
-  add_foreign_key "roles", "characters"
-  add_foreign_key "roles", "movies"
-  add_foreign_key "roles", "shows"
-  add_foreign_key "roles", "studios"
+  add_foreign_key "show_roles", "characters"
+  add_foreign_key "show_roles", "shows"
   add_foreign_key "shows", "studios"
 end
