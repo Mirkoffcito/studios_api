@@ -21,6 +21,7 @@ group :development, :test do
   gem "factory_bot_rails", "~> 6.2"
   gem "faker", "~> 2.18"
   gem 'dotenv-rails'
+  gem "letter_opener", "~> 1.7"
 end
 
 group :development do
@@ -38,3 +39,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "paranoia", "~> 2.2"
 
 gem "active_model_serializers", "~> 0.10.12"
+
+gem "devise_token_auth", "~> 1.2"
