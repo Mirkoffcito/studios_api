@@ -1,6 +1,6 @@
 class Studio < ApplicationRecord
-  has_many :movies
-  has_many :shows
+  has_many :movies, dependent: :destroy
+  has_many :shows, dependent: :destroy
 
   has_one_attached :image
 
