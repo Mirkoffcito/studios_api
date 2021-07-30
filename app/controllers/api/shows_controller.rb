@@ -50,7 +50,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def show_params
-        params.require(:show).permit(:title, :seasons, :release_date)
+        params.require(:show).permit(:title, :seasons, :score, :release_date)
       end
 
       def record_not_found

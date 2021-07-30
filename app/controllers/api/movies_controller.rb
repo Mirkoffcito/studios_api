@@ -49,7 +49,7 @@ module Api
       end
 
       def movie_params
-        params.require(:movie).permit(:title, :release_date)
+        params.require(:movie).permit(:title, :release_date, :score, :image)
       end
 
       def record_not_found

@@ -21,6 +21,9 @@ Bundler.require(*Rails.groups)
 
 module DisneyApi
   class Application < Rails::Application
+    # Necessary for correctly displaying active storage image url
+    routes.default_url_options = { host: 'localhost:3000' }
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 

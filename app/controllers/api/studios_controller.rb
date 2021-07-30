@@ -46,7 +46,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def studio_params
-        params.require(:studio).permit(:name)
+        params.require(:studio).permit(:name, :image)
       end
   end
 end

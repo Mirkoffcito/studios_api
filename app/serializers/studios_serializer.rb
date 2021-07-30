@@ -1,4 +1,4 @@
-class StudiosSerializer < ActiveModel::Serializer
-  attributes :id, :name
+class StudiosSerializer < CustomSerializer
+  attributes :id, :name, :image
 
 end

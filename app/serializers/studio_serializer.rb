@@ -1,7 +1,8 @@
-class StudioSerializer < ActiveModel::Serializer
-  attributes :id, :name
+class StudioSerializer < CustomSerializer
+  attributes :id, :name, :image
 
   has_many :movies
   has_many :shows
+  
 end
   
