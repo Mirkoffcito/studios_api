@@ -18,7 +18,7 @@ module Api
       @character = Character.new(character_params)
 
       if @character.save
-        render json: @character, status: :created, location: @character
+        render json: @character, status: :created, serializer: CharacterSerializer
       else
         render json: @character.errors, status: :unprocessable_entity
       end
@@ -26,16 +26,16 @@ module Api
 
     # PATCH/PUT /characters/1
     def update
-      if @character.update(character_params)
+      if character.update(character_params)
         render json: @character
       else
-        render json: @character.errors, status: :unprocessable_entity
+        render json: character.errors, status: :unprocessable_entity
       end
     end
 
     # DELETE /characters/1
     def destroy
-      @character.destroy
+      character.destroy
     end
 
     private
@@ -46,7 +46,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def character_params
-        params.fetch(:character, {})
+        params.require(:character).permit(:name, :age, :history, :weight, :id)
       end
   end
 end
