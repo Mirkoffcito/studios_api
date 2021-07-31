@@ -12,7 +12,7 @@ module Api
     def index
       @movies = apply_scopes(studio.movies.includes(:studio))
 
-      render json: @movies, each_serializer: MoviesSerializer
+      paginate @movies, per_page: 5, each_serializer: MoviesSerializer
     end
 
     # GET /movies/1

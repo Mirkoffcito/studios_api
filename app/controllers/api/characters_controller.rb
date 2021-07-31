@@ -12,7 +12,7 @@ module Api
     def index
       @characters = apply_scopes(Character).all
 
-      render json: @characters, each_serializer: CharactersSerializer
+      paginate @characters, per_page: 10, each_serializer: CharactersSerializer
     end
 
     # GET /characters/1

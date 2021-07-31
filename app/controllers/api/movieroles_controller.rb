@@ -21,7 +21,7 @@ module Api
     end
 
     def index_characters
-      render json: apply_scopes(movie.characters), each_serializer: CharactersSerializer
+      paginate apply_scopes(movie.characters), per_page: 10, each_serializer: CharactersSerializer
     end
 
     def show_character

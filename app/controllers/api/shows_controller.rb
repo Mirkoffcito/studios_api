@@ -14,7 +14,7 @@ module Api
     def index
       @shows = apply_scopes(studio.shows.includes(:studio))
 
-      render json: @shows, each_serializer: ShowsSerializer
+      paginate @shows, per_page: 5, each_serializer: ShowsSerializer
     end
 
     # GET /shows/1

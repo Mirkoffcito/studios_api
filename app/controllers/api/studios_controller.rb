@@ -8,7 +8,7 @@ module Api
     def index
       @studios = apply_scopes(Studio).all
 
-      render json: @studios, each_serializer: StudiosSerializer
+      paginate @studios, per_page: 5, each_serializer: StudiosSerializer
     end
 
     # GET /studios/1

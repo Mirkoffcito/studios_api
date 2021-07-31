@@ -43,3 +43,7 @@ gem "active_model_serializers", "~> 0.10.12"
 gem "devise_token_auth", "~> 1.2"
 
 gem "has_scope", "~> 0.8.0"
+
+gem "pagy", "~> 4.10"
+
+gem "pager_api", "~> 0.3.2"
