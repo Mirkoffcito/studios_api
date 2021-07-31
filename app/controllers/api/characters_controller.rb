@@ -1,6 +1,6 @@
 module Api
   class CharactersController < ApplicationController
-    
+    before_action :authenticate_api_user!, only: [:create, :update, :destroy]
     # GET /characters
     def index
       @characters = Character.all

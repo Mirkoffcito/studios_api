@@ -1,6 +1,7 @@
 module Api
   class ShowrolesController < ApplicationController
-    
+    before_action :authenticate_api_user!, only: [:create, :destroy]
+
     def create
       if find_character_from_param.nil?
         @role = ShowRole.new(character_id:character.id, show_id:tvshow.id)
