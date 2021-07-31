@@ -1,3 +1,3 @@
-class ShowsSerializer < ActiveModel::Serializer
-  attributes :id, :title, :seasons
+class ShowsSerializer < CustomSerializer
+  attributes :id, :title, :seasons, :image
 end

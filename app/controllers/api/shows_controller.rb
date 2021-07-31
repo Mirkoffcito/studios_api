@@ -3,9 +3,16 @@ module Api
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
     before_action :authorize_request, only: [:create, :update, :destroy]
 
+    # /shows?by_title=Iron man
+    has_scope :by_title
+    # /shows?by_releasedate[from]=1997-04-02&by_releasedate[to]=2005-04-02
+    has_scope :by_releasedate, using: %i[from to], type: :hash
+    # /shows?by_seasons=3 (number of seasons)
+    has_scope :by_seasons
+
     # GET /shows
     def index
-      @shows = studio.shows.includes(:studio)
+      @shows = apply_scopes(studio.shows.includes(:studio))
 
       render json: @shows, each_serializer: ShowsSerializer
     end
@@ -52,7 +59,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def show_params
-        params.require(:show).permit(:title, :seasons, :score, :release_date)
+        params.require(:show).permit(:title, :seasons, :score, :release_date, :image)
       end
 
       def record_not_found

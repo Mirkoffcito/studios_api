@@ -1,5 +1,5 @@
-class MovieSerializer < ActiveModel::Serializer
-    attributes :id, :title, :release_date
+class MovieSerializer < CustomSerializer
+    attributes :id, :title, :release_date, :image
 
     belongs_to :studio, serializer: StudiosSerializer
     has_many :characters

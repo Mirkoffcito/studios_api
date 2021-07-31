@@ -1,3 +1,3 @@
-class CharactersSerializer < ActiveModel::Serializer
-  attributes :id, :name
+class CharactersSerializer < CustomSerializer
+  attributes :id, :name, :image
 end

@@ -3,9 +3,14 @@ module Api
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
     before_action :authorize_request, only: [:create, :update, :destroy]
 
+    # /movies?by_title=Iron man
+    has_scope :by_title
+    # /movies?by_releasedate[from]=1997-04-02&by_releasedate[to]=2005-04-02
+    has_scope :by_releasedate, using: %i[from to], type: :hash
+
     # GET /movies
     def index
-      @movies = studio.movies.includes(:studio)
+      @movies = apply_scopes(studio.movies.includes(:studio))
 
       render json: @movies, each_serializer: MoviesSerializer
     end
