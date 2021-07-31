@@ -41,3 +41,5 @@ gem "paranoia", "~> 2.2"
 gem "active_model_serializers", "~> 0.10.12"
 
 gem "devise_token_auth", "~> 1.2"
+
+gem "has_scope", "~> 0.8.0"

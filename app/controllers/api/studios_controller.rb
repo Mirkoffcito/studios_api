@@ -3,9 +3,10 @@ module Api
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
     before_action :authorize_request, only: [:create, :update, :destroy]
     
+    has_scope :by_name
     # GET /studios
     def index
-      @studios = Studio.all
+      @studios = apply_scopes(Studio).all
 
       render json: @studios, each_serializer: StudiosSerializer
     end
