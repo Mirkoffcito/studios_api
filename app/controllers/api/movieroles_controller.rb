@@ -2,6 +2,9 @@ module Api
   class MovierolesController < ApplicationController
     before_action :authenticate_api_user!, only: [:create, :destroy]
     before_action :authorize_request, only: [:create, :destroy]
+
+    #/api/studios/1/movies/1/characters?by_name=Spider man
+    has_scope :by_name
     
     def create
       if find_character_from_param.nil?
@@ -18,7 +21,7 @@ module Api
     end
 
     def index_characters
-      render json: movie.characters, each_serializer: CharactersSerializer
+      render json: apply_scopes(movie.characters), each_serializer: CharactersSerializer
     end
 
     def show_character
