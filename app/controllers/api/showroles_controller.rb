@@ -1,6 +1,7 @@
 module Api
   class ShowrolesController < ApplicationController
     before_action :authenticate_api_user!, only: [:create, :destroy]
+    before_action :authorize_request, only: [:create, :destroy]
 
     def create
       if find_character_from_param.nil?

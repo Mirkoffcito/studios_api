@@ -1,6 +1,8 @@
 module Api
   class ShowsController < ApplicationController
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
+    before_action :authorize_request, only: [:create, :update, :destroy]
+
     # GET /shows
     def index
       @shows = studio.shows.includes(:studio)

@@ -1,6 +1,8 @@
 module Api
   class StudiosController < ApplicationController
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
+    before_action :authorize_request, only: [:create, :update, :destroy]
+    
     # GET /studios
     def index
       @studios = Studio.all

@@ -1,6 +1,8 @@
 module Api
   class MoviesController < ApplicationController
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
+    before_action :authorize_request, only: [:create, :update, :destroy]
+
     # GET /movies
     def index
       @movies = studio.movies.includes(:studio)
