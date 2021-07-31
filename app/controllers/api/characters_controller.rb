@@ -3,9 +3,14 @@ module Api
     before_action :authenticate_api_user!, only: [:create, :update, :destroy]
     before_action :authorize_request, only: [:create, :update, :destroy]
     
+    # /api?by_name=Aladdin
+    has_scope :by_name
+    # /api?by_age[from]=16&by_age[to]=17
+    has_scope :by_age, using: %i[from to], type: :hash
+
     # GET /characters
     def index
-      @characters = Character.all
+      @characters = apply_scopes(Character).all
 
       render json: @characters, each_serializer: CharactersSerializer
     end
