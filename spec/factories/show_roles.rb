@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :show_role do
-    show { nil }
-    character { nil }
+    show_id {}
+    character_id {}
   end
 end

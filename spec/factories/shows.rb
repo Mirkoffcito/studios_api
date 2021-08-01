@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :show do
-    title { "MyString" }
-    release_date { "2021-07-28" }
-    seasons { 1 }
-    score { 1 }
-    deleted_at { "2021-07-28 15:10:07" }
+    title { Faker::Movie.title }
+    release_date {"#{rand(1975..2021)}-#{rand(1..12)}-#{rand(1..28)}"}
+    score { rand(1..5) }
+    seasons { rand(1..15) }
+    studio_id {}
   end
 end

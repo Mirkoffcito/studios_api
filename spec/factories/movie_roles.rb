@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :movie_role do
-    movie { nil }
-    character { nil }
+    movie_id {}
+    character_id {}
   end
 end

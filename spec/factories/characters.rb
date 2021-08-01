@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :character do
-    name { "MyString" }
-    age { 1 }
-    weight { 1.5 }
-    history { "MyText" }
-    deleted_at { "2021-07-28 15:04:54" }
+    name { Faker::Name.name }
+    age { rand(10..99) }
+    weight { rand(37..105) }
+    history { Faker::Lorem.paragraph(sentence_count:5) }
   end
 end
