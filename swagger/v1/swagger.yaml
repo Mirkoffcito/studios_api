@@ -9,18 +9,174 @@ paths:
       summary: Returns all studios
       tags:
       - Studios
+      responses:
+        '200':
+          description: Lists all studios
+          content:
+            application/json:
+              example:
+                studios:
+                - id: 1
+                  name: Fox Studios
+                  image: https://www.imgur.com/fox_studios.jpg
+                - id: 2
+                  name: Marvel Studios
+                  image: https://www.imgur.com/marvel_studios.jpg
+              schema:
+                type: object
+                properties:
+                  studios:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        image:
+                          type: string
+    post:
+      summary: Creates a studio
+      tags:
+      - Studios
       security:
       - token: {}
         uid: {}
         client: {}
+      parameters: []
+      responses:
+        '201':
+          description: Studio Created
+          content:
+            application/json:
+              example:
+                studio:
+                  name: Fox Studios
+                  image: Image file
+        '401':
+          description: unauthorized access(user not logged in)
+        " 401":
+          description: unauthorized access(user is not an admin)
+        '400':
+          description: bad request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studio:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    image:
+                      type: string
+                  requires:
+                  - name
+  "/api/studios/{id}":
+    get:
+      summary: Returns a specific studio
+      tags:
+      - Studios
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
-          description: lists studios
+          description: renders specific studio
+          content:
+            application/json:
+              example:
+                studio:
+                  id: 1
+                  name: Fox Studios
+                  image: https://www.imgur.com/fox_studios.jpg
+                  movies:
+                  - id: 1
+                    title: Los simpsons
+                    release_date: '1997-04-02'
+                    image: https://www.imgur.com/simpsons.jpg
+                  shows:
+                  - id: 4
+                    title: Los simpsons
+                    release_date: '1997-04-02'
+                    seasons: 15
+                    image: https://www.imgur.com/simpsons.jpg
+        '404':
+          description: studio not found
+    patch:
+      summary: Updates a specific studio
+      tags:
+      - Studios
+      security:
+      - token: {}
+        uid: {}
+        client: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Succesfully updated the studio
+          content:
+            application/json:
+              example:
+                studio:
+                  name: Fox Studios
+                  image: Image file
+        '404':
+          description: Studio not found
+        '400':
+          description: Invalid params sent
+        '401':
+          description: Unauthorized access(User not logged in)
+        " 401":
+          description: Unauthorized access(User not an admin)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studio:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    image:
+                      type: string
+    delete:
+      summary: Deletes a specific studio
+      tags:
+      - Studios
+      security:
+      - token: {}
+        uid: {}
+        client: {}
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '404':
+          description: Not found(Studio not found)
+        '204':
+          description: No content(succesfully deleted)
+        '401':
+          description: Unauthorized access(User not logged in)
+        " 401":
+          description: Unauthorized access(User not an admin)
 servers:
 - url: http://localhost:3000
-  variables:
-    defaultHost:
-      default: www.example.com
 components:
   securitySchemes:
     token:
