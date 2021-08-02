@@ -47,3 +47,5 @@ gem "has_scope", "~> 0.8.0"
 gem "pagy", "~> 4.10"
 
 gem "pager_api", "~> 0.3.2"
+
+gem "rswag", "~> 2.4"

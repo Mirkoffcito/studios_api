@@ -1,0 +1,37 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/studios":
+    get:
+      summary: Returns all studios
+      tags:
+      - Studios
+      security:
+      - token: {}
+        uid: {}
+        client: {}
+      responses:
+        '200':
+          description: lists studios
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: www.example.com
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: access-token
+    uid:
+      type: apiKey
+      in: header
+      name: uid
+    client:
+      type: apiKey
+      in: header
+      name: client
