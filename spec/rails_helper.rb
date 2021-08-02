@@ -1,5 +1,7 @@
 # SimpleCov Config
 require 'simplecov'
+require 'simplecov'
+SimpleCov.start 'rails'
 SimpleCov.start do
   add_group 'Config', 'config'
   add_group 'Controllers', 'app/controllers'
